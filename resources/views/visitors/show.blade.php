@@ -14,20 +14,38 @@
           </div>
           <div class="card-body">
             <h5 class="card-title">Name: {{ $visitor->visitorName }}</h5>
-            <h6 class="card-subtitle mb-2 text-muted">NRIC: xxxxxx{{ $visitor->nric }}</h6>
-            <p class="card-text">Block: {{ $visitor->blockNo }} Unit: {{ $visitor->unitNo }}</p>
-            <p class="card-text">Contact No: {{ $visitor->contactNo }}</p>
+            <h6 class="card-subtitle mb-1 text-muted">NRIC: xxxxxx{{ $visitor->nric }}</h6>
+            <h6 class="card-subtitle mb-1 text-muted">Contact No: {{ $visitor->contactNo }}</h6>
           </div>
         </div>
-
 
         <div class="card mt-5">
           <div class="card-header">
             Visiting History
           </div>
           <div class="card-body">
-            <h5 class="card-title">Special title treatment</h5>
-            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+            <table class="table">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col">Tenant/Room</th>
+                  <th scope="col">Unit No</th>
+                  <th scope="col">Block No</th>
+                  <th scope="col">Entry Date</th>
+                  <th scope="col">Exit Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                @foreach($visitorlogs as $visitorlog)
+                <tr>
+                  <td>{{ $visitorlog->unit->occupantName }}</td>
+                  <td>{{ $visitorlog->unit->unitNo }}</td>
+                  <td>{{ $visitorlog->unit->blockNo }}</td>
+                  <td>{{ $visitorlog->entryDate }}</td>
+                  <td>{{ $visitorlog->exitDate }}</td>
+                </tr>
+                @endforeach
+              </tbody>
+            </table>
           </div>
         </div>
 

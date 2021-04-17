@@ -15,7 +15,6 @@ class VisitorLog extends Model
       'visitor_id',
       'unit_id',
       'entryDate',
-      'exitDate'
     ];
 
     public function visitor()
@@ -28,4 +27,25 @@ class VisitorLog extends Model
         return $this->belongsTo(Unit::class);
     }
 
+    /*
+    public function carmodels()
+    {
+        return $this->hasMany(CarModel::class);
+    }
+
+    public function engines()
+    {
+        return $this->hasManyThrough(
+            Engine::class,
+            CarModel::class,
+            'car_id', //FK on CarModel
+            'model_id' //FK on Engine
+        );
+    }
+
+    public function products()
+    {
+        return $this->belongsToMany(Product::class);
+    }
+    */
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Visitor;
+use App\Models\VisitorLog;
 
 class VisitorController extends Controller
 {
@@ -46,11 +47,7 @@ class VisitorController extends Controller
         $visitor = Visitor::create([
           'visitorName' => $request->input('visitorName'),
           'contactNo' => $request->input('contactNo'),
-          'unitNo' => $request->input('unitNo'),
-          'blockNo' => $request->input('blockNo'),
           'nric' => $request->input('nric'),
-          'entryDate' => $request->input('entryDate'),
-          'exitDate' => $request->input('exitDate'),
         ]);
         return redirect('/visitors') ;
     }
@@ -65,9 +62,13 @@ class VisitorController extends Controller
     {
         $visitors = Visitor::all() ;
         $visitor = Visitor::find($id);
+        $visitorlogs = VisitorLog::where('visitor_id', $id)
+          ->get();
+
         return view('visitors.show', [
           'visitors' => $visitors,
-          'visitor' => $visitor
+          'visitor' => $visitor,
+          'visitorlogs' => $visitorlogs
         ]);
     }
 
@@ -101,13 +102,8 @@ class VisitorController extends Controller
           ->update([
             'visitorName' => $request->input('visitorName'),
             'contactNo' => $request->input('contactNo'),
-            'unitNo' => $request->input('unitNo'),
-            'blockNo' => $request->input('blockNo'),
             'nric' => $request->input('nric'),
-            'entryDate' => $request->input('entryDate'),
-            'exitDate' => $request->input('exitDate'),
           ]);
-
         return redirect('/visitors');
     }
 
@@ -124,63 +120,4 @@ class VisitorController extends Controller
 
         return redirect('/visitors');
     }
-
-    /*
-    public function search(Request $request){
-        // Get the search value from the request
-        $search = $request->input('search');
-        dd($search);
-
-        // Search in the title and body columns from the posts table
-        $posts = Post::query()
-            ->where('title', 'LIKE', "%{$search}%")
-            ->orWhere('body', 'LIKE', "%{$search}%")
-            ->get();
-
-        // Return the search view with the resluts compacted
-        return view('search', compact('posts'));
-
-    }
-    */
-
-    public function search(Request $request)
-    {
-        //get the general information about the website
-        // $website = General::query()->firstOrFail();
-
-        $key = trim($request->get('searchUnitNo'));
-
-        dd("PEOW PEOW");
-
-        /*
-        $posts = Post::query()
-            ->where('title', 'like', "%{$key}%")
-            ->orWhere('content', 'like', "%{$key}%")
-            ->orderBy('created_at', 'desc')
-            ->get();
-
-        //get all the categories
-        $categories = Category::all();
-
-        //get all the tags
-        $tags = Tag::all();
-
-        //get the recent 5 posts
-        $recent_posts = Post::query()
-            ->where('is_published', true)
-            ->orderBy('created_at', 'desc')
-            ->take(5)
-            ->get();
-
-        return view('search', [
-            'website' => $website,
-            'key' => $key,
-            'posts' => $posts,
-            'categories' => $categories,
-            'tags' => $tags,
-            'recent_posts' => $recent_posts
-        ]);
-        */
-    }
-
 }

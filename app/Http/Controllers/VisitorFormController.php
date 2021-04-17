@@ -42,34 +42,44 @@ class VisitorFormController extends Controller
         STORE VISITOR
         RETRIEVE UNIT
         STORE VISITOR LOG
-
-          'unitNo' => $request->input('unitNo'),
-          'blockNo' => $request->input('blockNo'),
-
-          'entryDate' => $request->input('entryDate'),
-          'exitDate' => $request->input('exitDate'),
       */
 
-        $visitor = Visitor::create([
-          'visitorName' => $request->input('visitorName'),
-          'contactNo' => $request->input('contactNo'),
-          'nric' => $request->input('nric'),
-        ]);
+        $functionRoom = $request->input('functionRoom');
 
-        $unit = Unit::query()
-            ->where('unitNo', 'LIKE', "%{$request->input('unitNo')}%")
-            ->where('blockNo', 'LIKE', "%{$request->input('blockNo')}%")
-            ->get('id');
+        $existingVisitor = Visitor::query()
+            ->where('contactNo', 'LIKE', "%{$request->input('contactNo')}%")
+            ->where('nric', 'LIKE', "%{$request->input('nric')}%")
+            ->get();
 
+        if (count($existingVisitor) > 0) {
+          $visitor = $existingVisitor[0];
+        } else {
+          $visitor = Visitor::create([
+            'visitorName' => $request->input('visitorName'),
+            'contactNo' => $request->input('contactNo'),
+            'nric' => $request->input('nric'),
+          ]);
+        }
+
+        if ($functionRoom == 'on') {
+          $unit = Unit::query()
+              ->where('occupantName', 'LIKE', "%FUNCTION ROOM%")
+              ->get('id');
+        } else {
+          $unit = Unit::query()
+              ->where('unitNo', 'LIKE', "%{$request->input('unitNo')}%")
+              ->where('blockNo', 'LIKE', "%{$request->input('blockNo')}%")
+              ->get('id');
+        }
 
         $visitorlog = VisitorLog::create([
           'visitor_id' => $visitor->id,
           'unit_id' => $unit[0]->id,
-          'entryDate' => $request->input('entryDate'),
-          'exitDate' => $request->input('exitDate'),
+          'entryDate' => date("Y-m-d"),
+          'exitDate' => '',
         ]);
 
-        return redirect('/visitors') ;
+        return view('visitorform.index');
 
     }
 

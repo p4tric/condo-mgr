@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\VisitorLog;
+use App\Models\Unit;
+use Carbon\Carbon;
 
 class VisitorLogController extends Controller
 {
@@ -50,7 +52,26 @@ class VisitorLogController extends Controller
      */
     public function show($id)
     {
-        //
+        $visitorlogs = VisitorLog::all() ;
+        $visitorlog = VisitorLog::find($id);
+        $visitorcount = VisitorLog::query()
+          ->where('unit_id', 'LIKE', "%{$visitorlog->unit_id}%")
+          ->where('entryDate', '=', $visitorlog->entryDate)
+          ->where('exitDate', '=', '')
+          ->count();
+
+        $visitors = VisitorLog::query()
+          ->where('unit_id', '=', $visitorlog->unit_id)
+          ->where('entryDate', '=', $visitorlog->entryDate)
+          ->get();
+
+        return view('visitorlogs.show', [
+          'visitorlogs' => $visitorlogs,
+          'visitorlog' => $visitorlog,
+          'visitors' => $visitors,
+          'visitorcount' => $visitorcount,
+          'layout' => 'show'
+        ]);
     }
 
     /**
@@ -61,7 +82,13 @@ class VisitorLogController extends Controller
      */
     public function edit($id)
     {
-        //
+        $visitorlog = VisitorLog::find($id); //->first();
+        $visitorlogs = VisitorLog::all() ;
+        return view('visitorlogs.edit', [
+          'visitorlogs'=>$visitorlogs,
+          'visitorlog'=>$visitorlog,
+          'layout'=>'edit'
+        ]);
     }
 
     /**
@@ -73,7 +100,12 @@ class VisitorLogController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $visitor = VisitorLog::where('id', $id)
+          ->update([
+            'entryDate' => $request->input('entryDate'),
+            'exitDate' => $request->input('exitDate') ?? '',
+          ]);
+        return redirect('/visitorlogs');
     }
 
     /**
@@ -84,6 +116,68 @@ class VisitorLogController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $visitorlog = VisitorLog::find($id);
+        $visitorlog->delete();
+
+        return redirect('/visitorlogs');
     }
+
+
+    /*
+    public function search(Request $request){
+        // Get the search value from the request
+        $search = $request->input('search');
+        dd($search);
+
+        // Search in the title and body columns from the posts table
+        $posts = Post::query()
+            ->where('title', 'LIKE', "%{$search}%")
+            ->orWhere('body', 'LIKE', "%{$search}%")
+            ->get();
+
+        // Return the search view with the resluts compacted
+        return view('search', compact('posts'));
+
+    }
+    */
+
+    public function search(Request $request)
+    {
+        $visitorlogs = VisitorLog::all();
+        $key = trim($request->get('searchUnitNo'));
+        if ($key != "") {
+          $unit = Unit::query()
+            ->where('unitNo', '=', $key)
+            ->get('id');
+
+          if (count($unit) > 0) {
+            $visitorlogs = VisitorLog::query()
+              ->where('unit_id', '=', $unit[0]->id)
+              ->get();
+          }
+        }
+
+        return view('visitorlogs.index', [
+          'visitorlogs'=>$visitorlogs,
+          'layout'=>'index'
+        ]);
+
+    }
+
+    public function view(Request $request)
+    {
+        $dateS = Carbon::now()->startOfMonth()->subMonth(3);
+        $dateE = Carbon::now()->startOfMonth();
+
+        $visitorlogs = VisitorLog::query()
+          ->whereBetween('entryDate',[$dateS,$dateE])
+          ->get();
+
+        return view('visitorlogs.index', [
+          'visitorlogs'=>$visitorlogs,
+          'layout'=>'index'
+        ]);
+    }
+
+
 }

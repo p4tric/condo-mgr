@@ -4,30 +4,52 @@
   <div class="container-fluid mt-4">
     <div class="row">
       <section class="col-7">
-        @include("visitors.visitorlist")
+        @include("visitorlogs.visitorloglist")
       </section>
       <section class="col">
 
         <div class="card">
           <div class="card-header">
-            Visitor Details
+            Unit Details
           </div>
           <div class="card-body">
-            <h5 class="card-title">Name: {{ $visitor->visitorName }}</h5>
-            <h6 class="card-subtitle mb-2 text-muted">NRIC: xxxxxx{{ $visitor->nric }}</h6>
-            <p class="card-text">Block: {{ $visitor->blockNo }} Unit: {{ $visitor->unitNo }}</p>
-            <p class="card-text">Contact No: {{ $visitor->contactNo }}</p>
+            <h5 class="card-title">Unit: {{ $visitorlog->unit->unitNo }} Block: {{ $visitorlog->unit->blockNo }}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">Occupant/Tenant: {{ $visitorlog->unit->occupantName }}</h6>
+            <h6 class="card-subtitle mb-4 text-muted">Contact No: {{ $visitorlog->unit->contactNumber }}</h6>
+            <div style="display: flex; align-items: baseline;">
+              <p class="card-text">Visitor Count: {{ $visitorcount }}</p>
+              @if($visitorcount == 8)
+                <span style="color: #fff;" class="badge rounded-pill bg-danger">Maximum number of visitors reached.</span>
+              @endif
+            </div>
           </div>
         </div>
 
-
         <div class="card mt-5">
           <div class="card-header">
-            Visiting History
+            Unit Visitors
           </div>
           <div class="card-body">
-            <h5 class="card-title">Special title treatment</h5>
-            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+            <table class="table">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col">Visitor Name</th>
+                  <th scope="col">Contact No</th>
+                  <th scope="col">Entry Date</th>
+                  <th scope="col">Exit Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                @foreach($visitors as $v)
+                <tr>
+                  <td>{{ $v->visitor->visitorName }}</td>
+                  <td>{{ $v->visitor->contactNo }}</td>
+                  <td>{{ $v->entryDate }}</td>
+                  <td>{{ $v->exitDate }}</td>
+                </tr>
+                @endforeach
+              </tbody>
+            </table>
           </div>
         </div>
 

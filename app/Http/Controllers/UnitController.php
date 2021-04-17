@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Unit;
+
 use Illuminate\Http\Request;
+use App\Models\Unit;
+use App\Models\VisitorLog;
 
 class UnitController extends Controller
 {
@@ -62,9 +64,12 @@ class UnitController extends Controller
     {
         $units = Unit::all() ;
         $unit = Unit::find($id);
+        $visitorlogs = VisitorLog::where('unit_id', $id)
+          ->get();
         return view('units.show', [
           'units' => $units,
           'unit' => $unit,
+          'visitorlogs' => $visitorlogs,
           'layout' => 'show'
         ]);
     }

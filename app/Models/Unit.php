@@ -13,12 +13,17 @@ class Unit extends Model
     protected $primaryKey = 'id';
 
     protected $visible = ['id'];
-    
+
     protected $fillable = [
       'blockNo',
       'unitNo',
       'occupantName',
       'contactNumber'
     ];
+
+    public function visitorlogs()
+    {
+        return $this->hasMany(VisitorLogModel::class);
+    }
 
 }

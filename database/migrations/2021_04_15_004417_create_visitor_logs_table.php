@@ -16,7 +16,7 @@ class CreateVisitorLogsTable extends Migration
         Schema::create('visitor_logs', function (Blueprint $table) {
             $table->id();
             $table->string('entryDate');
-            $table->string('exitDate');
+            $table->string('exitDate')->default('');
             $table->timestamps();
 
             $table->foreignId('visitor_id')

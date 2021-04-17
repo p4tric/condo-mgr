@@ -15,10 +15,14 @@ class Visitor extends Model
     protected $fillable = [
       'visitorName',
       'contactNo',
-      'unitNo',
-      'blockNo',
       'nric',
-      'entryDate',
-      'exitDate',
     ];
+
+    // return $this->belongsTo(VisitorLogModel::class);
+
+    public function visitorlogs()
+    {
+        return $this->hasMany(VisitorLogModel::class);
+    }
+
 }
