@@ -13,7 +13,7 @@
 
 The Condominium Management System is developed using Laravel and Bootstrap.
 
-1) Clone develop branch
+1) Clone either master or develop branch
 2) Go inside project directory using cd command on your cmd or terminal.
 3) Run `composer install`
 4) Create schema 'condo-mgr' in mysql
