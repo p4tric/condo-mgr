@@ -16,10 +16,10 @@
 3) Open browser and type url: localhost:8000
 4) Add unit for function room and save:
 
-  Unit Number: <unit number of function room>
-  Block Number: <block number of function room>
-  Occupant Name: "FUNCTION ROOM"
-  Contact Number: <function room contact number>
+  - Unit Number: "unit number of function room"
+  - Block Number: "block number of function room"
+  - Occupant Name: "FUNCTION ROOM"
+  - Contact Number: "function room contact number"
 
 5) Add units of the condominium
 6) Start using Visit Form
