@@ -2,7 +2,7 @@
   <div class="card-header">
     Units
   </div>
-  <div class="card-body">
+  <div style="overflow: scroll; height: 80vh;" class="card-body">
 
     <table class="table">
       <thead class="thead-light">

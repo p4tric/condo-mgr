@@ -2,7 +2,7 @@
   <div class="card-header">
     Visitor Logs
   </div>
-  <div class="card-body">
+  <div style="overflow: scroll; height: 80vh;" class="card-body">
     <div style="display: flex; align-items: flex-start; justify-content: space-between">
       <div style="width: 18rem;" class="input-group mb-3">
         <form style="display: inline-flex;" action="{{ url('/visitorlogs/search/unitno') }}" method="GET" role="search">
@@ -19,12 +19,11 @@
           View Options
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <a class="dropdown-item" href="{{ url('/visitorlogs') }}">All</a>
-          <a class="dropdown-item" href="{{ url('/visitorlogs/search/view') }}">Last 3 months</a>
+          <a class="dropdown-item" href="{{ url('/visitorlogs?view=all') }}">All</a>
+          <a class="dropdown-item" href="{{ url('/visitorlogs?view=3mo') }}">Last 3 months</a>
         </div>
       </div>
     </div>
-
 
     <table class="table">
       <thead class="thead-light">

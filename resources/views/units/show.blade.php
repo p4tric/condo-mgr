@@ -23,7 +23,7 @@
           <div class="card-header">
             Visiting History
           </div>
-          <div class="card-body">
+          <div style="overflow: scroll; height: 55vh;" class="card-body">
             <table class="table">
               <thead class="thead-light">
                 <tr>

@@ -31,5 +31,4 @@ Route::resource('/units', UnitController::class);
 Route::resource('/visitors', VisitorController::class);
 Route::resource('/visitorlogs', VisitorLogController::class);
 Route::get('/visitorlogs/search/unitno', [VisitorLogController::class, 'search']);
-Route::get('/visitorlogs/search/view', [VisitorLogController::class, 'view']);
 Route::resource('/visitorform', VisitorFormController::class);

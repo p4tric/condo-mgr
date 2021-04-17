@@ -2,7 +2,7 @@
   <div class="card-header">
     Visitors
   </div>
-  <div class="card-body">
+  <div style="overflow: scroll; height: 80vh;" class="card-body">
     <!--
     <div style="display: flex; align-items: flex-start; justify-content: space-between">
       <div style="width: 18rem;" class="input-group mb-3">

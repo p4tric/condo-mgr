@@ -14,9 +14,21 @@ class VisitorLogController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $visitorlogs = VisitorLog::all();
+        $queryparams = $request->query->get('view');
+
+        if ($queryparams == '3mo') {
+          $dateS = Carbon::now()->startOfMonth()->subMonth(3);
+          $dateE = Carbon::now()->startOfMonth();
+
+          $visitorlogs = VisitorLog::query()
+            ->whereBetween('entryDate',[$dateS,$dateE])
+            ->get();
+        } else {
+          $visitorlogs = VisitorLog::all();
+        }
+
         return view('visitorlogs.index', [
           'visitorlogs'=>$visitorlogs,
           'layout'=>'index'
@@ -163,21 +175,4 @@ class VisitorLogController extends Controller
         ]);
 
     }
-
-    public function view(Request $request)
-    {
-        $dateS = Carbon::now()->startOfMonth()->subMonth(3);
-        $dateE = Carbon::now()->startOfMonth();
-
-        $visitorlogs = VisitorLog::query()
-          ->whereBetween('entryDate',[$dateS,$dateE])
-          ->get();
-
-        return view('visitorlogs.index', [
-          'visitorlogs'=>$visitorlogs,
-          'layout'=>'index'
-        ]);
-    }
-
-
 }

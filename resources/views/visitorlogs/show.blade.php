@@ -17,7 +17,7 @@
             <h6 class="card-subtitle mb-2 text-muted">Occupant/Tenant: {{ $visitorlog->unit->occupantName }}</h6>
             <h6 class="card-subtitle mb-4 text-muted">Contact No: {{ $visitorlog->unit->contactNumber }}</h6>
             <div style="display: flex; align-items: baseline;">
-              <p class="card-text">Visitor Count: {{ $visitorcount }}</p>
+              <p class="mr-3 card-text">Visitor Count: {{ $visitorcount }}</p>
               @if($visitorcount == 8)
                 <span style="color: #fff;" class="badge rounded-pill bg-danger">Maximum number of visitors reached.</span>
               @endif
@@ -29,7 +29,7 @@
           <div class="card-header">
             Unit Visitors
           </div>
-          <div class="card-body">
+          <div style="overflow: scroll; height: 48.5vh;" class="card-body">
             <table class="table">
               <thead class="thead-light">
                 <tr>
