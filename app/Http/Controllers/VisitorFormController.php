@@ -44,16 +44,19 @@ class VisitorFormController extends Controller
         STORE VISITOR LOG
       */
 
-        $functionRoom = $request->input('functionRoom');
+        $functionroom = $request->input('functionRoom');
 
         $existingVisitor = Visitor::query()
             ->where('contactNo', 'LIKE', "%{$request->input('contactNo')}%")
             ->where('nric', 'LIKE', "%{$request->input('nric')}%")
             ->get();
 
-        if (count($existingVisitor) > 0) {
+        if (count($existingVisitor) > 0)
+        {
           $visitor = $existingVisitor[0];
-        } else {
+        }
+        else
+        {
           $visitor = Visitor::create([
             'visitorName' => $request->input('visitorName'),
             'contactNo' => $request->input('contactNo'),
@@ -61,11 +64,15 @@ class VisitorFormController extends Controller
           ]);
         }
 
-        if ($functionRoom == 'on') {
+        if ($functionroom == 'on')
+        {
           $unit = Unit::query()
               ->where('occupantName', 'LIKE', "%FUNCTION ROOM%")
               ->get('id');
-        } else {
+        }
+        else
+        {
+          dd("pasok2");
           $unit = Unit::query()
               ->where('unitNo', 'LIKE', "%{$request->input('unitNo')}%")
               ->where('blockNo', 'LIKE', "%{$request->input('blockNo')}%")

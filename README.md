@@ -1,3 +1,5 @@
+
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 
 <p align="center">
@@ -6,6 +8,22 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
+
+## Initial Setup
+
+1) Clone develop branch
+2) Run `php artisan serve`
+3) Open browser and type url: localhost:8000
+4) Add unit for function room and save:
+
+  Unit Number: <unit number of function room>
+  Block Number: <block number of function room>
+  Occupant Name: "FUNCTION ROOM"
+  Contact Number: <function room contact number>
+
+5) Add units of the condominium
+6) Start using Visit Form
+
 
 ## About Laravel
 
