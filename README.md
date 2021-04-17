@@ -11,6 +11,8 @@
 
 ## Initial Setup
 
+The Condominium Management System is developed using Laravel and Bootstrap.
+
 1) Clone develop branch
 2) Run `php artisan serve`
 3) Open browser and type url: localhost:8000
