@@ -14,17 +14,22 @@
 The Condominium Management System is developed using Laravel and Bootstrap.
 
 1) Clone develop branch
-2) Run `php artisan serve`
-3) Open browser and type url: localhost:8000
-4) Add unit for function room and save:
+2) Go inside project directory using cd command on your cmd or terminal.
+3) Run `composer install`
+4) Create schema 'condo-mgr' in mysql
+5) Edit .env file located in project directory and double check configuration
+6) Run `php artisan migrate`
+7) Run `php artisan serve`
+8) Open browser and type url: localhost:8000
+9) Add unit for function room and save:
 
   - Unit Number: "unit number of function room"
   - Block Number: "block number of function room"
   - Occupant Name: "FUNCTION ROOM"
   - Contact Number: "function room contact number"
 
-5) Add units of the condominium
-6) Start using Visit Form
+10) Add units of the condominium
+11) Start using Visit Form to accept visitors
 
 
 ## About Laravel
